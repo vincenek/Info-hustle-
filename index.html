@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InfoHustle - Digital Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .product {
+      background: #fff;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .product h3 {
+      margin: 0 0 0.5rem;
+    }
+    .product button {
+      background-color: #0d6efd;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #084298;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>InfoHustle Digital Store</h1>
+    <p>Purchase once. Instant access. No stress.</p>
+  </header>
+  <div class="container" id="store">
+    <!-- Products will load here -->
+  </div>
+
+  <script>
+    const products = [
+      {
+        name: "Trading Journal (TraderOS)",
+        price: 10,000,
+        link: "https://vincenek.github.io/TraderOS/"
+      },
+      {
+        name: "AI Prompts - Batch 1",
+        price: 5500,
+        link: "https://docs.google.com/document/d/10PTHcFvH7tNTijkZx2ST455WMYwih1T5FT4Ic56jPfY"
+      },
+      {
+        name: "AI Prompts - Batch 2",
+        price: 6500,
+        link: "https://docs.google.com/document/d/10xqPzNa54WAxYGHN6u6TU1qyFHjcRqJ1xDeHBnc91Sc"
+      },
+      {
+        name: "AI Prompts - Batch 3",
+        price: 7500,
+        link: "https://docs.google.com/document/d/11i__3IpWHXgHc2FWnwkjl8TMkmS-xUmmZnyFPhuCcfI"
+      },
+      {
+        name: "AI Prompts - Batch 4",
+        price: 4500,
+        link: "https://docs.google.com/document/d/13ZCRvDEWrslZDhmpuCzZI1A2yJW4g5qK9Qbe2jwrHnw"
+      },
+      {
+        name: "Ebook: AI - Your Invincible Co-Pilot",
+        price: 7800,
+        link: "https://docs.google.com/document/d/14h0nik-QwytVEUOPVzuAivPoJShJ49gScfsPxfi-EW4"
+      },
+      {
+        name: "Ebook: The Vicious Cycle",
+        price: 9700,
+        link: "https://docs.google.com/document/d/174FkURfdozxchF1eNhzu9AkMUXM01d0vcznWPkIrmxI"
+      },
+      {
+        name: "Ebook: Redefining the Summit",
+        price: 7750,
+        link: "https://docs.google.com/document/d/18AgW2s344_8ACeu-IksC3MkmPLxGxsLnLZdxF7Gb814"
+      },
+      {
+        name: "Ebook: The Alchemy of Perception",
+        price: 4750,
+        link: "https://docs.google.com/document/d/18aiMlrp16s39NaeLMhkw0rY7YSrfEPsDMM1J_95rFq4"
+      }
+    ];
+
+    const store = document.getElementById("store");
+
+    products.forEach((product, index) => {
+      const productDiv = document.createElement("div");
+      productDiv.className = "product";
+      productDiv.innerHTML = `
+        <h3>${product.name}</h3>
+        <p>₦${product.price}</p>
+        <button onclick="payWithPaystack(${index})">Buy Now</button>
+      `;
+      store.appendChild(productDiv);
+    });
+
+    function payWithPaystack(index) {
+      const product = products[index];
+      const handler = PaystackPop.setup({
+        key: 'pk_test_1f759a668641f37cd1b315c1d9cfa5c01ec2f202',
+        email: 'buyer@example.com',
+        amount: product.price * 100,
+        currency: "NGN",
+        callback: function(response) {
+          alert("Payment complete! Click OK to access your product.");
+          window.open(product.link, "_blank");
+        },
+        onClose: function() {
+          alert('Transaction cancelled.');
+        }
+      });
+      handler.openIframe();
+    }
+  </script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+</body>
+</html>
