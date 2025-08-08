@@ -1,228 +1,943 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>InfoHustle - Digital Store</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #111;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .product {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
-    .product h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.2rem;
-      color: #222;
-      flex-grow: 1;
-    }
-    .price {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #0d6efd;
-      margin: 0.75rem 0;
-    }
-    .product button {
-      background-color: #0d6efd;
-      color: #fff;
-      border: none;
-      padding: 0.75rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      margin-top: auto;
-    }
-    .product button:hover {
-      background-color: #084298;
-    }
-    .header-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .tagline {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      margin-top: 0.5rem;
-    }
-    .hero {
-      background: linear-gradient(135deg, #0d6efd, #084298);
-      color: white;
-      padding: 3rem 1rem;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .hero h2 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    .benefits {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .benefit {
-      background: rgba(255,255,255,0.15);
-      padding: 1rem;
-      border-radius: 8px;
-      width: 180px;
-    }
-    footer {
-      background-color: #111;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
-    }
-    @media (max-width: 600px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-      .hero h2 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack Pro | Premium Finance Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #334155;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            color: var(--dark);
+        }
+
+        .balance-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .income-value {
+            color: var(--success);
+        }
+
+        .expense-value {
+            color: var(--danger);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .transaction-form {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn-submit {
+            background: linear-gradient(to right, var(--success), #34d399);
+            color: white;
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .transaction-list {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background-color 0.3s;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-item:hover {
+            background-color: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .transaction-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .category-income { background: var(--success); }
+        .category-food { background: #f59e0b; }
+        .category-shopping { background: #8b5cf6; }
+        .category-transport { background: #0ea5e9; }
+        .category-housing { background: #ec4899; }
+        .category-entertainment { background: #f97316; }
+        .category-other { background: #64748b; }
+
+        .transaction-details h3 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .transaction-details p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .income-amount {
+            color: var(--success);
+        }
+
+        .expense-amount {
+            color: var(--danger);
+        }
+
+        .charts-container {
+            margin-top: 30px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .chart-card {
+            height: 300px;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .export-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-top: 30px;
+        }
+
+        .export-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .export-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-3px);
+        }
+
+        .export-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .export-btn span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <h1>InfoHustle Digital Store</h1>
-      <p class="tagline">Purchase once. Instant access. No stress.</p>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h1>FinTrack Pro</h1>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-outline">
+                    <i class="fas fa-sync-alt"></i> Sync
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-column">
+                <div class="dashboard">
+                    <!-- Balance Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                Current Balance
+                            </div>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                        <div class="balance-amount">$8,245.60</div>
+                        <div class="balance-stats">
+                            <div class="stat">
+                                <div class="stat-value income-value">+$2,450</div>
+                                <div class="stat-label">Income</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value expense-value">-$1,204</div>
+                                <div class="stat-label">Expenses</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Budget Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                Monthly Budget
+                            </div>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                        <div class="balance-amount">$3,200 / $4,000</div>
+                        <div class="progress-bar" style="margin: 20px 0; height: 10px; background: #e2e8f0; border-radius: 5px;">
+                            <div style="width: 80%; height: 100%; background: var(--success); border-radius: 5px;"></div>
+                        </div>
+                        <div class="balance-stats">
+                            <div class="stat">
+                                <div class="stat-value">$800</div>
+                                <div class="stat-label">Remaining</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">22 days</div>
+                                <div class="stat-label">Left</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transaction Form -->
+                <div class="transaction-form">
+                    <h2 class="form-title"><i class="fas fa-plus-circle"></i> Add Transaction</h2>
+                    <form id="transactionForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="transactionType">Type</label>
+                                <select id="transactionType" class="form-control">
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" class="form-control" placeholder="0.00" step="0.01" min="0">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" class="form-control">
+                                <option value="salary">Salary</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="investment">Investment</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="transport">Transport</option>
+                                <option value="housing">Housing</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" class="form-control" placeholder="Enter transaction details">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" class="form-control">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-check-circle"></i> Add Transaction
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Charts -->
+                <div class="charts-container">
+                    <h2 class="chart-title"><i class="fas fa-chart-bar"></i> Financial Reports</h2>
+                    <div class="chart-row">
+                        <div class="card chart-card">
+                            <canvas id="spendingChart"></canvas>
+                        </div>
+                        <div class="card chart-card">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Transactions -->
+            <div class="right-column">
+                <div class="transaction-list">
+                    <div class="list-header">
+                        <h2 class="card-title"><i class="fas fa-list"></i> Recent Transactions</h2>
+                        <div class="filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Income</button>
+                            <button class="filter-btn">Expense</button>
+                        </div>
+                    </div>
+                    
+                    <div id="transactionsContainer">
+                        <!-- Transactions will be added here dynamically -->
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon category-salary">
+                                    <i class="fas fa-money-check"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h3>Monthly Salary</h3>
+                                    <p>May 30 • Salary</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount income-amount">+$3,200.00</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon category-housing">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h3>Apartment Rent</h3>
+                                    <p>May 28 • Housing</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense-amount">-$1,200.00</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon category-food">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h3>Grocery Shopping</h3>
+                                    <p>May 27 • Food</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense-amount">-$86.75</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon category-transport">
+                                    <i class="fas fa-gas-pump"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h3>Gas Station</h3>
+                                    <p>May 26 • Transport</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense-amount">-$45.20</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon category-entertainment">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h3>Netflix Subscription</h3>
+                                    <p>May 25 • Entertainment</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense-amount">-$14.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="export-section">
+                    <h2 class="card-title"><i class="fas fa-file-export"></i> Export Data</h2>
+                    <p>Download your financial data for backup or analysis</p>
+                    <div class="export-options">
+                        <button class="export-btn">
+                            <div class="export-icon">
+                                <i class="fas fa-file-csv"></i>
+                            </div>
+                            <span>CSV Format</span>
+                        </button>
+                        <button class="export-btn">
+                            <div class="export-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <span>PDF Report</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
-  
-  <div class="hero">
-    <h2>Digital Products for Your Success</h2>
-    <div class="benefits">
-      <div class="benefit">Instant Delivery</div>
-      <div class="benefit">Premium Content</div>
-      <div class="benefit">Lifetime Access</div>
-    </div>
-  </div>
-  
-  <div class="container" id="store">
-    <!-- Products will load here -->
-  </div>
 
-  <footer>
-    <p>&copy; 2023 InfoHustle Digital Store. All rights reserved.</p>
-    <p>Secure payments powered by Paystack</p>
-  </footer>
-
-  <script>
-    // Fixed the product prices by removing commas
-    const products = [
-      {
-        name: "Trading Journal (TraderOS)",
-        price: 10000,
-        link: "https://vincenek.github.io/TraderOS/"
-      },
-      {
-        name: "AI Prompts - Business Ideas & Validation",
-        price: 5500,
-        link: "https://docs.google.com/document/d/10PTHcFvH7tNTijkZx2ST455WMYwih1T5FT4Ic56jPfY"
-      },
-      {
-        name: "AI Prompts - Marketing & Sales",
-        price: 6500,
-        link: "https://docs.google.com/document/d/10xqPzNa54WAxYGHN6u6TU1qyFHjcRqJ1xDeHBnc91Sc"
-      },
-      {
-        name: "AI Prompts - Productivity & Mindset",
-        price: 7500,
-        link: "https://docs.google.com/document/d/11i__3IpWHXgHc2FWnwkjl8TMkmS-xUmmZnyFPhuCcfI"
-      },
-      {
-        name: "AI Prompts - Finance & Operations",
-        price: 4500,
-        link: "https://docs.google.com/document/d/13ZCRvDEWrslZDhmpuCzZI1A2yJW4g5qK9Qbe2jwrHnw"
-      },
-      {
-        name: "Ebook: AI - Your Invincible Co-Pilot",
-        price: 7800,
-        link: "https://docs.google.com/document/d/14h0nik-QwytVEUOPVzuAivPoJShJ49gScfsPxfi-EW4"
-      },
-      {
-        name: "Ebook: The Vicious Cycle",
-        price: 9700,
-        link: "https://docs.google.com/document/d/174FkURfdozxchF1eNhzu9AkMUXM01d0vcznWPkIrmxI"
-      },
-      {
-        name: "Ebook: Redefining the Summit",
-        price: 7750,
-        link: "https://docs.google.com/document/d/18AgW2s344_8ACeu-IksC3MkmPLxGxsLnLZdxF7Gb814"
-      },
-      {
-        name: "Ebook: The Alchemy of Perception",
-        price: 4750,
-        link: "https://docs.google.com/document/d/18aiMlrp16s39NaeLMhkw0rY7YSrfEPsDMM1J_95rFq4"
-      }
-    ];
-
-    const store = document.getElementById("store");
-
-    products.forEach((product, index) => {
-      const productDiv = document.createElement("div");
-      productDiv.className = "product";
-      // Format the price with commas for display
-      const formattedPrice = "₦" + product.price.toLocaleString();
-      productDiv.innerHTML = `
-        <h3>${product.name}</h3>
-        <div class="price">${formattedPrice}</div>
-        <button onclick="payWithPaystack(${index})">Buy Now</button>
-      `;
-      store.appendChild(productDiv);
-    });
-
-    function payWithPaystack(index) {
-      const product = products[index];
-      const handler = PaystackPop.setup({
-        key: 'pk_test_1f759a668641f37cd1b315c1d9cfa5c01ec2f202',
-        email: 'buyer@example.com',
-        amount: product.price * 100,
-        currency: "NGN",
-        callback: function(response) {
-          alert("Payment complete! Click OK to access your product.");
-          window.open(product.link, "_blank");
-        },
-        onClose: function() {
-          alert('Transaction cancelled.');
-        }
-      });
-      handler.openIframe();
-    }
-  </script>
-  <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize charts
+            const spendingCtx = document.getElementById('spendingChart').getContext('2d');
+            const spendingChart = new Chart(spendingCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Housing', 'Food', 'Transport', 'Entertainment', 'Shopping', 'Other'],
+                    datasets: [{
+                        data: [35, 20, 15, 12, 10, 8],
+                        backgroundColor: [
+                            '#ec4899', '#f59e0b', '#0ea5e9', '#f97316', '#8b5cf6', '#64748b'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+            const incomeChart = new Chart(incomeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Income',
+                        data: [3200, 3400, 3100, 3500, 3800],
+                        backgroundColor: '#10b981',
+                        borderRadius: 6
+                    }, {
+                        label: 'Expenses',
+                        data: [2200, 2400, 2300, 2500, 2600],
+                        backgroundColor: '#ef4444',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Transaction form handling
+            const transactionForm = document.getElementById('transactionForm');
+            transactionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const type = document.getElementById('transactionType').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+                const category = document.getElementById('category').value;
+                const description = document.getElementById('description').value;
+                const date = document.getElementById('date').value || new Date().toISOString().split('T')[0];
+                
+                if (!amount || amount <= 0) {
+                    alert('Please enter a valid amount');
+                    return;
+                }
+                
+                // Create transaction element
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                
+                // Determine icon and color based on category
+                let iconClass, iconBg, iconName;
+                
+                switch(category) {
+                    case 'salary':
+                        iconClass = 'category-income';
+                        iconBg = 'category-salary';
+                        iconName = 'fas fa-money-check';
+                        break;
+                    case 'freelance':
+                        iconClass = 'category-income';
+                        iconBg = 'category-other';
+                        iconName = 'fas fa-laptop';
+                        break;
+                    case 'investment':
+                        iconClass = 'category-income';
+                        iconBg = 'category-other';
+                        iconName = 'fas fa-chart-line';
+                        break;
+                    case 'food':
+                        iconClass = 'category-food';
+                        iconBg = 'category-food';
+                        iconName = 'fas fa-utensils';
+                        break;
+                    case 'shopping':
+                        iconClass = 'category-shopping';
+                        iconBg = 'category-shopping';
+                        iconName = 'fas fa-shopping-bag';
+                        break;
+                    case 'transport':
+                        iconClass = 'category-transport';
+                        iconBg = 'category-transport';
+                        iconName = 'fas fa-car';
+                        break;
+                    case 'housing':
+                        iconClass = 'category-housing';
+                        iconBg = 'category-housing';
+                        iconName = 'fas fa-home';
+                        break;
+                    case 'entertainment':
+                        iconClass = 'category-entertainment';
+                        iconBg = 'category-entertainment';
+                        iconName = 'fas fa-gamepad';
+                        break;
+                    default:
+                        iconClass = 'category-other';
+                        iconBg = 'category-other';
+                        iconName = 'fas fa-question';
+                }
+                
+                transactionItem.innerHTML = `
+                    <div class="transaction-info">
+                        <div class="transaction-icon ${iconBg}">
+                            <i class="${iconName}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h3>${description || 'New Transaction'}</h3>
+                            <p>${formatDate(date)} • ${formatCategory(category)}</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount ${type === 'income' ? 'income-amount' : 'expense-amount'}">
+                        ${type === 'income' ? '+' : '-'}$${amount.toFixed(2)}
+                    </div>
+                `;
+                
+                // Prepend to the container
+                document.getElementById('transactionsContainer').prepend(transactionItem);
+                
+                // Show success notification
+                showNotification(`Transaction added: ${type === 'income' ? 'Income' : 'Expense'} of $${amount.toFixed(2)}`);
+                
+                // Reset form
+                transactionForm.reset();
+                document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            });
+            
+            // Set today's date as default
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Helper functions
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+            
+            function formatCategory(category) {
+                return category.charAt(0).toUpperCase() + category.slice(1);
+            }
+            
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 25px';
+                notification.style.backgroundColor = '#10b981';
+                notification.style.color = 'white';
+                notification.style.borderRadius = '10px';
+                notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                notification.style.zIndex = '1000';
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(20px)';
+                notification.style.transition = 'all 0.3s ease';
+                notification.innerText = message;
+                
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateY(0)';
+                }, 10);
+                
+                // Animate out after 3 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
