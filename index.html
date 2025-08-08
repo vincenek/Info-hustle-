@@ -21,63 +21,150 @@
       max-width: 900px;
       margin: 2rem auto;
       padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
     .product {
       background: #fff;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
     .product h3 {
       margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+      color: #222;
+      flex-grow: 1;
+    }
+    .price {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #0d6efd;
+      margin: 0.75rem 0;
     }
     .product button {
       background-color: #0d6efd;
       color: #fff;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem;
       border-radius: 5px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin-top: auto;
     }
     .product button:hover {
       background-color: #084298;
+    }
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .tagline {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0d6efd, #084298);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    .benefits {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .benefit {
+      background: rgba(255,255,255,0.15);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 180px;
+    }
+    footer {
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>InfoHustle Digital Store</h1>
-    <p>Purchase once. Instant access. No stress.</p>
+    <div class="header-content">
+      <h1>InfoHustle Digital Store</h1>
+      <p class="tagline">Purchase once. Instant access. No stress.</p>
+    </div>
   </header>
+  
+  <div class="hero">
+    <h2>Digital Products for Your Success</h2>
+    <div class="benefits">
+      <div class="benefit">Instant Delivery</div>
+      <div class="benefit">Premium Content</div>
+      <div class="benefit">Lifetime Access</div>
+    </div>
+  </div>
+  
   <div class="container" id="store">
     <!-- Products will load here -->
   </div>
 
+  <footer>
+    <p>&copy; 2023 InfoHustle Digital Store. All rights reserved.</p>
+    <p>Secure payments powered by Paystack</p>
+  </footer>
+
   <script>
+    // Fixed the product prices by removing commas
     const products = [
       {
         name: "Trading Journal (TraderOS)",
-        price: 10,000,
+        price: 10000,
         link: "https://vincenek.github.io/TraderOS/"
       },
       {
-        name: "AI Prompts - Batch 1",
+        name: "AI Prompts - Business Ideas & Validation",
         price: 5500,
         link: "https://docs.google.com/document/d/10PTHcFvH7tNTijkZx2ST455WMYwih1T5FT4Ic56jPfY"
       },
       {
-        name: "AI Prompts - Batch 2",
+        name: "AI Prompts - Marketing & Sales",
         price: 6500,
         link: "https://docs.google.com/document/d/10xqPzNa54WAxYGHN6u6TU1qyFHjcRqJ1xDeHBnc91Sc"
       },
       {
-        name: "AI Prompts - Batch 3",
+        name: "AI Prompts - Productivity & Mindset",
         price: 7500,
         link: "https://docs.google.com/document/d/11i__3IpWHXgHc2FWnwkjl8TMkmS-xUmmZnyFPhuCcfI"
       },
       {
-        name: "AI Prompts - Batch 4",
+        name: "AI Prompts - Finance & Operations",
         price: 4500,
         link: "https://docs.google.com/document/d/13ZCRvDEWrslZDhmpuCzZI1A2yJW4g5qK9Qbe2jwrHnw"
       },
@@ -108,9 +195,11 @@
     products.forEach((product, index) => {
       const productDiv = document.createElement("div");
       productDiv.className = "product";
+      // Format the price with commas for display
+      const formattedPrice = "₦" + product.price.toLocaleString();
       productDiv.innerHTML = `
         <h3>${product.name}</h3>
-        <p>₦${product.price}</p>
+        <div class="price">${formattedPrice}</div>
         <button onclick="payWithPaystack(${index})">Buy Now</button>
       `;
       store.appendChild(productDiv);
